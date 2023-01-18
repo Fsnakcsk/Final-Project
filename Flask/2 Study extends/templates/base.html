@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>not name</title>
+    {% endif %}
+
+</head>
+<body>
+
+    {% include 'navbar.html' %}
+
+    <!-- 母模板 -->
+    {% block content %}
+     <h1> Parent template</h1>
+    {% endblock %}
+    <!-- 如果存在子模版，母模板的内容将会被子模版的内容所代替 -->
+</body>
+</html>
