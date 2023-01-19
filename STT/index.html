@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <p><b> STT </b>"Voice > Text > another Languagee"</p>
+        <button id="start" >Record</button>
+        <button id="stop">Stop</button>
+        <input type="text" id="resultList" value="undefined" size="80"/>
+    </body>
+
+    <script>
+
+        if(!("webkitSpeechRecognition") in window){
+            alert("Connect in Chrome Browser");
+
+        } else {
+            const speech = new webkitSpeechRecognition;
+    
+            document.getElementById("start").addEventListener("click",()=>{
+                speech.start();
+            });
+
+            document.getElementById("stop").addEventListener("click",()=>{
+                speech.stop();
+            });
+    
+            speech.addEventListener("result", (event)=> {
+                console.log(event);
+                const { transcript } = event["results"][0][0];
+                console.log(transcript);
+                resultListView(transcript);
+            });
+    ``
+            function resultListView(transcript){
+                document.getElementById("resultList").value = transcript;
+            }
+        }
+    </script>
+</html>
