@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const fs = require('fs');
+        const request = require('request');
+
+        const clientId = 'YOUR_CLIENT_ID';
+        const clientSecret = 'YOUR_CLIENT_SECRET';
+
+        // language => 언어 코드 ( Kor )
+        function stt(language, filePath) {
+            const url = `https://naveropenapi.apigw-pub.fin-ntruss.com/recog/v1/stt?lang=${language}`;
+            const requestConfig = {
+                url: url,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/octet-stream',
+                    'X-NCP-APIGW-API-KEY-ID': clientId,
+                    'X-NCP-APIGW-API-KEY': clientSecret
+                },
+                body: fs.createReadStream(filePath)
+            };
+
+            request(requestConfig, (err, response, body) => {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+
+                console.log(response.statusCode);
+                console.log(body);
+            });
+        }
+
+        stt('Kor', '바탕 화면/test.wav');
+    </script>
+</body>
+</html>
