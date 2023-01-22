@@ -21,6 +21,7 @@
 
         } else {
             const speech = new webkitSpeechRecognition;
+            recognition.interimResults = true;
     
             document.getElementById("start").addEventListener("click",()=>{
                 speech.start();
