@@ -99,15 +99,18 @@
                 return new Blob([data], { type: 'audio/wav' });
             }
         };
+
         //开始录音
         this.start = function () {
             audioInput.connect(recorder);
             recorder.connect(context.destination);
         }
+
         //停止
         this.stop = function () {
             recorder.disconnect();
         }
+
         //获取音频文件
         this.getBlob = function () {
             this.stop();
@@ -118,6 +121,7 @@
         this.play = function (audio) {
             audio.src = window.URL.createObjectURL(this.getBlob());
         }
+
         //上传
         this.upload = function (url, callback) {
             var fd = new FormData();
@@ -146,6 +150,7 @@
             //record(e.inputBuffer.getChannelData(0));
         }
     };
+    
     //抛出异常
     HZRecorder.throwError = function (message) {
         alert(message);
