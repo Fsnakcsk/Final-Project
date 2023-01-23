@@ -55,9 +55,9 @@ def STT():
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         if count == 1 :
             print(count)
-            audioFilePath = "C:/Users/userpc/Desktop/정답2.wav"
+            audioFilePath = "C:/Users/admin/Desktop/정답2.wav"
         else :
-            audioFilePath = "C:/Users/userpc/Desktop/정답"+ str(count) +".wav"
+            audioFilePath = "C:/Users/admin/Desktop/정답"+ str(count) +".wav"
             count += 1
             print(count)
             
@@ -95,8 +95,8 @@ def STT():
         
         
         dic = {'1' : "안녕하세요. 오늘도 멋진 하루 되세요"}
-        String_sound = target
-        String_target = target=dic['1']
+        #String_sound = target
+        #String_target = target=dic['1']
         
         print(target)
         
@@ -104,29 +104,29 @@ def STT():
         #       유사도 검사
         #---------------------------------------------------------------------------
         
-        openApiURL = "http://aiopen.etri.re.kr:8000/ParaphraseQA"
-        accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a"
-        sentence1 = String_sound
-        sentence2 = String_target
+        # openApiURL = "http://aiopen.etri.re.kr:8000/ParaphraseQA"
+        # accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a"
+        # sentence1 = String_sound
+        # sentence2 = String_target
         
-        requestJson = {
-        "argument": {
-            "sentence1": sentence1 ,
-            "sentence2": sentence2
-            }
-        }
+        # requestJson = {
+        # "argument": {
+        #     "sentence1": sentence1 ,
+        #     "sentence2": sentence2
+        #     }
+        # }
         
-        http = urllib3.PoolManager()
-        response = http.request(
-            "POST",
-            openApiURL,
-            headers={"Content-Type": "application/json; charset=UTF-8","Authorization" :  accessKey},
-            body=json.dumps(requestJson)
-        )
+        # http = urllib3.PoolManager()
+        # response = http.request(
+        #     "POST",
+        #     openApiURL,
+        #     headers={"Content-Type": "application/json; charset=UTF-8","Authorization" :  accessKey},
+        #     body=json.dumps(requestJson)
+        # )
         
-        print("[responseCode] " + str(response.status))
-        print("[responBody]")
-        print(str(response.data,"utf-8"))
+        # print("[responseCode] " + str(response.status))
+        # print("[responBody]")
+        # print(str(response.data,"utf-8"))
         
         #--------------------------------------------------------------------------
         
@@ -134,7 +134,7 @@ def STT():
         if target == dic['1'] :
             String += '맞췄습니다'
         else:
-            String += '틀렸씁니다.'
+            String += '틀렸습니다.'
             
         return render_template('zhongtest.html', target=dic['1'], sound = target, ck=String)
     

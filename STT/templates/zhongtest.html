@@ -94,8 +94,8 @@
             <div><audio autoplay></audio></div>
             <div class='line'><input onclick="startRecording()" type="button" value="시작" /></div>
             <div class='line'>
-                <form action="http://localhost:5000/STT" method="post">
-                    <input onclick="stopRecording()" id='dw' type="submit" value="범춰" />
+                <form action="http://127.0.0.1:5000/STT" method="post">
+                    <input onclick="stopRecording()" id='dw' type="submit" value="멈춰" />
                 </form>
             </div>
         </div>
@@ -188,6 +188,7 @@
             });
         }
         //-------------------------------------------------------------------------------------
+        // TTS
         var voices = [];
         function setVoiceList() {
             voices = window.speechSynthesis.getVoices();
