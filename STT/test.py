@@ -74,9 +74,9 @@ def STT():
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         if count == 1 :
             print(count)
-            audioFilePath = "C:/Users/userpc/Desktop/정답1.wav"
+            audioFilePath = "C:\\Users\\userpc\\Desktop\\정답1.wav"
         else :
-            audioFilePath = "C:/Users/userpc/Desktop/정답"+ str(count) +".wav"
+            audioFilePath = "C:\\Users\\userpc\\Desktop\\정답"+ str(count) +".wav"
             count += 1
             print(count)
             
@@ -107,18 +107,17 @@ def STT():
 
         string = str(response.data,"utf-8")
         List = string.split('"')
+        List = List[-2]
+        List = List[:-1]
         print(List)
         
-        target = List[-2]
-        target = target[:-1]
         
+        # dic = {'1' : "안녕하세요. 오늘도 멋진 하루 되세요"}
         
-        dic = {'1' : "안녕하세요. 오늘도 멋진 하루 되세요"}
+        String_sound = List
+        String_target = sound_target
         
-        String_sound = target
-        String_target = target=dic['1']
-        
-        print(target)
+        print(List)
         
         #---------------------------------------------------------------------------
         #       유사도 검사 NLP Open API
@@ -166,7 +165,7 @@ def STT():
         else:
             String += '유사하지 않습니다'
         #                                             정답문장          TTS        체크 결과
-        return render_template('zhongtest.html', target=dic['1'], sound = target, ck=String)
+        return render_template('zhongtest.html', target=sentence2, sound = sentence1, ck=String)
 
 
 if __name__ == "__main__":
