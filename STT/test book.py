@@ -9,6 +9,7 @@ from time import sleep
 import urllib3
 import json
 
+import count
 
 app = Flask(__name__)
 
@@ -54,6 +55,7 @@ sound_url = db_List[5]    # 경로
 sound_target = db_List[3] # 정답Text
 
 
+
 #-------------------------------------------------------------
 #      main
 #-------------------------------------------------------------
@@ -69,7 +71,7 @@ def STT():
     String_target = '' # 정답 Text
     
     sleep(5)
-    count = 1
+    
     
     #---------------------------------------------------------------------------
     #      STT Open API
