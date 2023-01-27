@@ -9,7 +9,6 @@ from time import sleep
 import urllib3
 import json
 
-import count
 
 app = Flask(__name__)
 
@@ -65,8 +64,7 @@ def STT():
     String_target = ''
     
     sleep(5)
-    
-    
+    count = 1
     
     #---------------------------------------------------------------------------
     #      STT Open API
@@ -75,8 +73,12 @@ def STT():
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         if count == 1 :
+            print(count)
             audioFilePath = "C:\\Users\\userpc\\Desktop\\정답1.wav"
-
+        else :
+            audioFilePath = "C:\\Users\\userpc\\Desktop\\정답"+ str(count) +".wav"
+            count += 1
+            print(count)
             
         languageCode = "korean"
         

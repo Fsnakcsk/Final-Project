@@ -9,7 +9,7 @@ from time import sleep
 import urllib3
 import json
 
-import count
+from count import count
 
 app = Flask(__name__)
 
