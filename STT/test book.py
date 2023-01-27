@@ -12,7 +12,7 @@ import json
 from count import count
 
 app = Flask(__name__)
-
+count = 1
 #======================================
 #                 DB
 #======================================
@@ -70,6 +70,7 @@ def STT():
     String_sound = ''  # 녹음파일 Text
     String_target = '' # 정답 Text
     
+    global count
     sleep(5)
     
     
@@ -80,12 +81,12 @@ def STT():
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         if count == 1 :
-            print(count)
+            print(count, "count 1")
             audioFilePath = "C:\\Users\\admin\\Desktop\\정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
         else :
-            count += 1
-            audioFilePath = "C:\\Users\\admin\\Desktop\\정답"+ str(count) +".wav" # 같이 의논할 부분
-            print(count)
+            count = count + 1
+            print(count, "count 1이상")
+            audioFilePath = "C:\\Users\\admin\\Desktop\\정답1"+ str(count) +".wav" # 같이 의논할 부분
             
         languageCode = "korean"
         
