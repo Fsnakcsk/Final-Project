@@ -6,80 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script type="text/javascript" src="../static/js/huahua.js"></script>
-    <style>
-        .app{
-            width: 500px;
-            height: 300px;
-            background-color: aqua;
-
-            /*position: absolute;*/
-            /*overflow: visible;*/
-        }   
-
-        .menu{
-            width: 100%;
-            height: 200px;
-            background-color: aquamarine;
-            overflow:visible;
-        }
-
-        .toollist{
-            width: 100%;
-            height: 20px;
-            background-color: rgb(44, 61, 55);
-        }
-        .menu-item{
-            width: 10px;
-            height: 30px;
-            background-color: rgb(150, 24, 24);
-        }
-    </style>
 </head>
 
 <body>
-    <div class="app">
-        <div class="menu">
-            <div class="toollist">
-                <button class="menu-item" style="width: fit-content;" onclick="clearCanvas()">clear</button>
-                <button class="menu-item" onclick="restoreMouse()">
-                    <svg>//图标
-                    </svg>
-                </button>
-                <button class="menu-item" onclick="pencilDraw()">
-                    <svg>//图标
-                    </svg>
-                </button>
-                <button class="menu-item" onclick="lineDraw()">
-                    <svg>
-                    </svg>
-                </button>
-                <button class="menu-item" onclick="saveCanvas()">
-                    <svg>
-                    </svg>
-                </button>
-                <button class="menu-item" onclick="useEraser()">
-                    <svg>
-                    </svg>
-                </button>
-                <button class="menu-item" onclick="RectDraw()">
-                    <svg>
-                    </svg></button>
-                <button class="menu-item" onclick="circleDraw()">
-                    <svg>
-                    </svg>
-                </button>
-                <button class="menu-item" onclick="insertText()">A</button>
-            </div>
-            <div>
-                <input type="color" style="margin-top: 10px;" onchange="handleColorChange(this)">
-            </div>
-        </div>
-        <div style="background-color: #fff; position: relative;" class="canvas-area">
-            <canvas id="canvas" width="1000" height="1000"></canvas>
-        </div>
-        <!-- <input type="text" style="border: 1px dashed #ccc; position:absolute;top:0;left:10%;outline:none"> -->
-    </div>
+
 </body>
+<script language='javascript' type='text/javascript'>
+
+    $(function () {
+
+        setTimeout(function () {
+
+            $("divid").show();
+
+        }, 6000);
+
+    })
+
+</script>
 
 </html>
