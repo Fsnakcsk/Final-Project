@@ -1,69 +1,87 @@
-from flask import Flask, flash, redirect, render_template, request, url_for, jsonify
+from flask import Flask, render_template, request, flash, g
+from werkzeug.utils import secure_filename
 import sqlite3 as sql
-from flask import g
-import os
-
 import base64
 import requests
 from time import sleep
-
 import urllib3
 import json
-
-
+import os, pyscreenshot, random, string
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
+import easyocr
 
 app = Flask(__name__)
-count = 1
-#======================================
-#                 DB
-#======================================
-
-#                               고칠 부분
-DATABASE_URI = 'C:\\Users\\admin\\Desktop\\Github\\Final-Project\\STT\\sttdb.db'
-
-# DB및 구조 생성 **생성했기 때문에 다시 사용할 필요 없다**
-# conn = sql.connect('sttdb.db', isolation_level=None)
-# cur = conn.cursor()
-# cur.execute(
-#     'CREATE TABLE IF NOT EXISTS STT (id TEXT, p TEXT, url TEXT)')
-# cur.close()
 
 
-# id = 1
-# p = "안녕하세요. 오늘도 멋진 하루 되세요"
-# url = 'C:\\Users\\userpc\\Desktop\\정답1.wav'
+# HTML 렌더링
 
-# conn = sql.connect(DATABASE_URI, isolation_level=None)
-# cur = conn.cursor()
-# cur.execute("""INSERT INTO STT(id, p, url) 
-#                     VALUES(?, ?, ?)""", (id, p, url))
-# conn.commit()
-# cur.close()
-
-
-# ---- DB에서 데이터를 불러오기 ----
-conn = sql.connect(DATABASE_URI, isolation_level=None)
-cur = conn.cursor()
-
-cur.execute("SELECT * FROM STT")
-db_text = str(cur.fetchmany(size=1))
-print(db_text)
-
-# 경로와 정답Text만 추출하기 위한 처리
-db_List = db_text.split("'")
-
-sound_url = db_List[5]    # 경로
-sound_target = db_List[3] # 정답Text
-
-count = 0
-
-#-------------------------------------------------------------
-#      main
-#-------------------------------------------------------------
 @app.route('/')
-def Sound():
+def home():
+    return render_template('home.html')
+
+@app.route('/intro')
+def intro():
+    return render_template('0_intro.html')
+
+@app.route('/yolo')
+def yolo():
+    return render_template('1st_test.html')
+
+@app.route('/stroop')
+def stroop():
+    return render_template('2nd_test.html')
+
+@app.route('/text_to_img')
+def text_to_img():
+    return render_template('3rd_test.html')
+
+@app.route('/find_diff')
+def find_diff():
+    return render_template('4th_test.html')
+
+@app.route('/pygame')
+def pygame():
+    return render_template('5th_test.html')
+
+
+
+@app.route('/get_screenshot', methods=['POST'])
+def get_screenshot():
+    im = pyscreenshot.grab()
+    random_id = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(32)])
+    file_name = 'static/5/img/{}.png'.format(random_id)
+    im.save(file_name)
+    reader = easyocr.Reader(['ko', 'en'])
+    with open(file_name,'rb') as pf:
+        img = pf.read()
+        result = reader.readtext(img)
+        for res in result:
+            if res[1][0:10] == 'Your level':    
+                level = res[1][-1]
+                print(res[1][-1])
+    os.remove(file_name)
+
+
+@app.route('/sound')
+def sound():
+    
+    DATABASE_URI = 'C:/Users/admin/Desktop/SoftLand (1)/game/6_stt/sttdb.db'
+    # ---- DB에서 데이터를 불러오기 ----
+    conn = sql.connect(DATABASE_URI, isolation_level=None)
+    cur = conn.cursor()
+
+    cur.execute("SELECT * FROM STT")
+    db_text = str(cur.fetchmany(size=1))
+    print(db_text)
+
+    # 경로와 정답Text만 추출하기 위한 처리
+    db_List = db_text.split("'")
+
+    global sound_target
+    sound_url = db_List[5]    # 경로
+    sound_target = db_List[3] # 정답Text
     dic = {'1' : sound_target} # 정답 Text
-    return render_template('zhongtest.html', target=dic['1'])
+    return render_template('6th_test.html', target=dic['1'])
 
 @app.route('/STT', methods=['POST', 'GET'])
 def STT():
@@ -71,9 +89,8 @@ def STT():
     String_sound = ''  # 녹음파일 Text
     String_target = '' # 정답 Text
     
-    global count
     sleep(5)
-    
+    count = 1
     
     #---------------------------------------------------------------------------
     #      STT Open API
@@ -81,8 +98,7 @@ def STT():
     if request.method == 'POST':
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
-        audioFilePath = "C:\\Users\\admin\\Desktop\\정답.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
-
+        audioFilePath = "C:/Users/admin/Downloads/정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
             
         languageCode = "korean"
         
@@ -176,11 +192,29 @@ def STT():
         else:
             String += '유사하지 않습니다'
             
-        # 이름 중복 및 count 누작 안되는 문제를 해결을 위해 파일 삭제
         os.remove(audioFilePath)
-        #                                            정답문장          TTS        체크 결과
-        return render_template('zhongtest.html', target = sentence2, sound = sentence1, ck=String)
+        #                                             정답문장          TTS        체크 결과
+        return render_template('6th_test.html', target = sentence2, sound = sentence1, ck=String)
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route('/result')
+def result():
+    return render_template('result_2.html')
+
+@app.route('/aboutus')
+def aboutus():
+    return render_template('aboutus.html')
+
+@app.route('/abouttest')
+def abouttest():
+    return render_template('abouttest.html')
+
+
+if __name__ == '__main__':
+    # https://flask.palletsprojects.com/en/2.0.x/api/#flask.Flask.run
+    # https://snacky.tistory.com/9
+    app.run(debug=True)  
+    
+    
+    
+    

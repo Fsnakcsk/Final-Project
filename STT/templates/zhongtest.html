@@ -157,11 +157,12 @@
             au.src = url;   
             hf.href = url;
 
-            count = count + 1
-            hf.download = '정답' + String(count) + '.wav';
+            
+            hf.download = '정답.wav';
             hf.innerHTML = hf.download;
             hf.click()
 
+            // 정답1 정답1(1), 정답1(2)
             //hf.click();            // 다운로드 클릭
             //a = div.appendChild(au);
             //div.appendChild(hf);
