@@ -10,10 +10,13 @@ from time import sleep
 import urllib3
 import json
 
+import boto3
+
 
 
 app = Flask(__name__)
 count = 1
+
 #======================================
 #                 DB
 #======================================
@@ -55,7 +58,9 @@ db_List = db_text.split("'")
 sound_url = db_List[5]    # 경로
 sound_target = db_List[3] # 정답Text
 
-count = 0
+#======================================
+ 
+#======================================
 
 #-------------------------------------------------------------
 #      main
