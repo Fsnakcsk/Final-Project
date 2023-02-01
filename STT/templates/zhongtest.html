@@ -81,7 +81,8 @@
         margin-left: 30px;
         font-size: 14px;
     }
-    .btn{
+
+    .btn {
         width: 100%;
         height: 20px;
         text-align: center;
@@ -91,11 +92,11 @@
 <body>
     <div id=baijing>
         <div id='sound_head'>
-            <audio autoplay></audio>                   <!-- 시작버튼 -->
+            <audio autoplay></audio> <!-- 시작버튼 -->
             <div class='line'><input class="btn" onclick="startRecording()" type="button" value="시작" /></div>
             <div class='line'>
                 <form action="http://127.0.0.1:5000/STT" method="post">
-                                                <!-- 멈추기버튼 -->
+                    <!-- 멈추기버튼 -->
                     <input class="btn" onclick="stopRecording()" id='dw' type="submit" value="멈춰" />
                 </form>
             </div>
@@ -103,7 +104,7 @@
         <div id='contens'>
             <div class='qu'>
                 <table border=0 class='target_align'>
-                    <input id="code_reddit" type="hidden" value="{{ target }}" autocomplete="off"> 
+                    <input id="code_reddit" type="hidden" value="{{ target }}" autocomplete="off">
                     <button class="btn" onclick="g_gout()">재생</button> <!-- 정답 일거주는 재생버튼 -->
                     <th>따라하기 : </td>
                     <td> {{ target }}</td>
@@ -145,7 +146,7 @@
 
         //-------------------------------------------------------------------------------------
         // 멈추기 버튼
-        function stopRecording() { 
+        function stopRecording() {
             //recorder.stop();
             var blob = recorder.getBlob();
             var url = URL.createObjectURL(blob);
@@ -154,13 +155,42 @@
             var hf = document.createElement('a');
 
             au.controls = true;
-            au.src = url;   
+            au.src = url;
             hf.href = url;
 
-            
+
             hf.download = '정답.wav';
             hf.innerHTML = hf.download;
             hf.click()
+
+            /// <reference types="aws-sdk" />
+            var credentials = {
+                accessKeyId: 'xxxxxxxxxxxxx',
+                secretAccessKey: 'xxxxxxxxxxxxxx'
+            }; //秘钥形式的登录上传
+            AWS.config.update(credentials);
+            AWS.config.region = 'xxxxxxxxxxxx'; //设置区域
+
+            // create bucket instance
+            var bucket = new AWS.S3({ params: { Bucket: 'xxxxxxxxx' } }); //选择桶
+            var fileChooser = document.getElementById('file-chooser');
+            var button = document.getElementById('upload-button');
+            var results = document.getElementById('results');
+            button.addEventListener('click', function () {
+                var file = fileChooser.files[0];
+                if (file) {
+                    results.innerHTML = '';
+                    var params = { Key: file.name, ContentType: file.type, Body: hf, 'Access-Control-Allow-Credentials': '*', 'ACL': 'public-read' }; //key可以设置为桶的相抵路径，Body为文件， ACL最好要设置
+                    console.log(params)
+                    bucket.upload(params, function (err, data) {
+                        console.log(err); //打印出错误
+                        results.innerHTML = err ? 'ERROR!' : 'UPLOADED.';
+                    });
+                } else {
+                    results.innerHTML = 'Nothing to upload.';
+                }
+            }, false);
+
 
             // 정답1 정답1(1), 정답1(2)
             //hf.click();            // 다운로드 클릭
