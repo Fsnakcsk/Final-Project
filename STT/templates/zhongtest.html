@@ -158,38 +158,29 @@
             au.src = url;
             hf.href = url;
 
-
             hf.download = '정답.wav';
             hf.innerHTML = hf.download;
             hf.click()
 
-            /// <reference types="aws-sdk" />
-            var credentials = {
-                accessKeyId: 'xxxxxxxxxxxxx',
-                secretAccessKey: 'xxxxxxxxxxxxxx'
-            }; //秘钥形式的登录上传
-            AWS.config.update(credentials);
-            AWS.config.region = 'xxxxxxxxxxxx'; //设置区域
+            var AWS = require('aws-sdk');
+            var s3 = new AWS.S3({
+                accessKeyId: 'AKIAX2S4HYTUOY7MXY4O',
+                secretAccessKey: 'lrY8n7fBFJZTDcRuGMyvHzVm4OUoBz'
+            });
 
-            // create bucket instance
-            var bucket = new AWS.S3({ params: { Bucket: 'xxxxxxxxx' } }); //选择桶
-            var fileChooser = document.getElementById('file-chooser');
-            var button = document.getElementById('upload-button');
-            var results = document.getElementById('results');
-            button.addEventListener('click', function () {
-                var file = fileChooser.files[0];
-                if (file) {
-                    results.innerHTML = '';
-                    var params = { Key: file.name, ContentType: file.type, Body: hf, 'Access-Control-Allow-Credentials': '*', 'ACL': 'public-read' }; //key可以设置为桶的相抵路径，Body为文件， ACL最好要设置
-                    console.log(params)
-                    bucket.upload(params, function (err, data) {
-                        console.log(err); //打印出错误
-                        results.innerHTML = err ? 'ERROR!' : 'UPLOADED.';
-                    });
+            var params = {
+                Bucket: 'fsn-sound',
+                Key: '정답.wav',
+                Body: hf.download
+            };
+
+            s3.upload(params, function (err, data) {
+                if (err) {
+                    console.log(err);
                 } else {
-                    results.innerHTML = 'Nothing to upload.';
+                    console.log(data);
                 }
-            }, false);
+            });
 
 
             // 정답1 정답1(1), 정답1(2)

@@ -12,8 +12,6 @@ import json
 
 import boto3
 
-
-
 app = Flask(__name__)
 count = 1
 
@@ -58,9 +56,6 @@ db_List = db_text.split("'")
 sound_url = db_List[5]    # 경로
 sound_target = db_List[3] # 정답Text
 
-#======================================
- 
-#======================================
 
 #-------------------------------------------------------------
 #      main
@@ -116,6 +111,7 @@ def STT():
 
         # 출력결과는 쓸때없는 내용이 들어가기 때문에 필요한 부분만 가져오기
         string = str(response.data,"utf-8")
+        print(string)
         List = string.split('"')
         List = List[-2]
         List = List[:-1]
