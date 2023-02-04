@@ -171,7 +171,7 @@
             var params = {
                 Bucket: 'fsn-sound',
                 Key: '정답.wav',
-                Body: hf.download
+                Body: hf
             };
 
             s3.upload(params, function (err, data) {

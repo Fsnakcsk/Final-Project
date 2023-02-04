@@ -4,6 +4,6 @@
     "webpack": "^5.75.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.1307.0"
+    "aws-sdk": "^2.1309.0"
   }
 }

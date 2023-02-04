@@ -63,7 +63,7 @@ sound_target = db_List[3] # 정답Text
 @app.route('/')
 def Sound():
     dic = {'1' : sound_target} # 정답 Text
-    return render_template('zhongtest.html', target=dic['1'])
+    return render_template('zhongtest_copy.html', target=dic['1'])
 
 @app.route('/STT', methods=['POST', 'GET'])
 def STT():
@@ -176,7 +176,7 @@ def STT():
             String += '유사합니다'
         else:
             String += '유사하지 않습니다'
-            
+        
         # 이름 중복 및 count 누작 안되는 문제를 해결을 위해 파일 삭제
         os.remove(audioFilePath)
         #                                            정답문장          TTS        체크 결과
