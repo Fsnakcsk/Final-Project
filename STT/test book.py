@@ -1,16 +1,22 @@
 from flask import Flask, flash, redirect, render_template, request, url_for, jsonify
 import sqlite3 as sql
+<<<<<<< Updated upstream
 from flask import g
 import os
 
+=======
+>>>>>>> Stashed changes
 import base64
-import requests
 from time import sleep
 
 import urllib3
 import json
+<<<<<<< Updated upstream
 
 import boto3
+=======
+from count import count
+>>>>>>> Stashed changes
 
 app = Flask(__name__)
 count = 1
