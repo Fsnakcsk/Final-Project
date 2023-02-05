@@ -3,7 +3,7 @@ import sqlite3 as sql
 
 from flask import g
 import os
- 
+  
 import base64
 from time import sleep
 
