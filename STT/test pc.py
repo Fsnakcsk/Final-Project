@@ -74,7 +74,7 @@ def STT():
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         if count == 1 :
             print(count)
-            audioFilePath = "C:\\Users\\userpc\\Desktop\\정답1.wav"
+            audioFilePath = "C:\\Users\\userpc\\Desktop\\정답.wav"
         else :
             audioFilePath = "C:\\Users\\userpc\\Desktop\\정답"+ str(count) +".wav"
             count += 1

@@ -1,22 +1,25 @@
 from flask import Flask, flash, redirect, render_template, request, url_for, jsonify
 import sqlite3 as sql
+
 from flask import g
 import os
 
 import base64
-import requests
 from time import sleep
 
 import urllib3
 import json
 
 import boto3
+ 
+from count import count
 
+ 
 app = Flask(__name__)
 count = 1
 
 #======================================
-#                 DB
+#                 DB 
 #======================================
 
 #                               고칠 부분
