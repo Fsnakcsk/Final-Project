@@ -109,6 +109,8 @@
                     var au = document.createElement('audio');
                     var hf = document.createElement('a');
 
+
+                    
                     /* ---------------------------------------------------------- */
 
                     /*
@@ -143,6 +145,18 @@
                     hf.innerHTML = hf.download;
                     hf.click()
                     
+
+
+                    /*
+                    fetch("/STT", {
+                        method: "POST",
+                        body: blob
+                    })
+                    .then(response => response.text())
+                    .then(text => console.log(text))
+                    .catch(error => console.error(error));
+                    recordingslist.appendChild(div);
+                    */
                     /*
                     $.ajax({
                         type: "POST",
@@ -163,7 +177,6 @@
                     //hf.click();            // 다운로드 클릭
                     //a = div.appendChild(au);
                     //div.appendChild(hf);
-                    recordingslist.appendChild(div);
                 }
                 //-------------------------------------------------------------------------------------            
                 function playRecording() {
