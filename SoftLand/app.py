@@ -379,7 +379,7 @@ def STT():
     # 파일
     file = request.files["file"]
     # do something with the file
-    return "File uploaded successfully"
+    # return "File uploaded successfully"
     
     sleep(5)
     count = 1
@@ -391,10 +391,10 @@ def STT():
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         # audioFilePath = "C:/Users/admin/Downloads/정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
-        audioFilePath = "C:\\Users\\admin\\Desktop\\정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
+        # audioFilePath = "C:\\Users\\admin\\Desktop\\정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
         languageCode = "korean"
         
-        file = open(audioFilePath, "rb")
+        file = open(file, "rb")
         audioContents = base64.b64encode(file.read()).decode("utf8")
         file.close()
         
