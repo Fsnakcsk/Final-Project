@@ -104,48 +104,7 @@
                     //recorder.stop();
                     
                     var blob = recorder.getBlob();
-
-                    let files = new window.File([this.blob], file.name, {type: file.type})
-               
                     var url = URL.createObjectURL(blob);
-
-                    var data = new FormData();
-                    data.append('files', blob, 'files.wav');
-
-                    /*
-                    $.ajax({
-                        type: "POST",
-                        url: "/STT",
-                        data: files,
-                        processData: false,
-                        contentType: false
-                    })
-                        .done(function (data) {
-                            console.log("Success:", data);
-                        })
-                        .fail(function (error) {
-                            console.error("Error:", error);
-                        });
-                        */
-                        $.ajax({
-                            type:'POST',
-                            url:'http://127.0.0.1:5000/STT',
-                            cache: false, //上传文件无需缓存
-                            data:data,
-                            async:false,
-                            processData:false,
-                            contentType:false,
-                            success:function(data){
-                                console.log("uploadWAVFileOKOKOK");
-                            },error:function(data){
-                                console.log("error");
-                            }
-                        });
-        
-
-
-
-
                     var div = document.createElement('div');
                     var au = document.createElement('audio');
                     var hf = document.createElement('a');
@@ -182,7 +141,23 @@
                     count = count + 1
                     hf.download = '정답' + String(count) + '.wav';
                     hf.innerHTML = hf.download;
-                    // hf.click()
+                    hf.click()
+                    
+                    /*
+                    $.ajax({
+                        type: "POST",
+                        url: "http://127.0.0.1:5000//STT",
+                        data: files,
+                        processData: false,
+                        contentType: false
+                    })
+                        .done(function (data) {
+                            console.log("Success:", data);
+                        })
+                        .fail(function (error) {
+                            console.error("Error:", error);
+                        });
+                    */
 
 
                     //hf.click();            // 다운로드 클릭
