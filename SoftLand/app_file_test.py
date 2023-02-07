@@ -345,7 +345,7 @@ cur = conn.cursor()
 # cur.execute(
 #     'CREATE TABLE IF NOT EXISTS STT (id TEXT, p TEXT, url TEXT)')
 # id = 1
-# p = "강아지가 방에 들어오면 고양이는 의자 밑에 숨는다"
+# p = "안녕하세요. 오늘도 멋진 하루 되세요"
 # url = 'C:/Users/admin/Desktop/SoftLand (1)/game/6_stt/sound/정답1.wav'
 
 # conn = sql.connect(DATABASE_URI, isolation_level=None)
@@ -364,7 +364,6 @@ sound_url = db_List[5]    # 경로
 sound_target = db_List[3] # 정답Text
 dic = {'1' : sound_target} # 정답 Text
 
-testString = "강아지가 방에 들어오면 고양이는 의자 밑에 숨는다"
 
 @app.route('/sound')
 def sound():
@@ -377,6 +376,11 @@ def STT():
     String_sound = ''  # 녹음파일 Text
     String_target = '' # 정답 Text
     
+    # 파일
+    file = request.files["file"]
+    # do something with the file
+    # return "File uploaded successfully"
+    
     sleep(5)
     count = 1
     
@@ -384,24 +388,16 @@ def STT():
     #      STT Open API
     #---------------------------------------------------------------------------
     if request.method == 'POST':
-        
-        # 파일
-        file = request.files["file"]
-        # do something with the file
-        # return "File uploaded successfully"
-        
-        
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         # audioFilePath = "C:/Users/admin/Downloads/정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
-        audioFilePath = "C:\\Users\\admin\\Desktop\\정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
+        # audioFilePath = "C:\\Users\\admin\\Desktop\\정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
         languageCode = "korean"
         
-        #file = open(audioFilePath, "rb")
         file = open(file, "rb")
         audioContents = base64.b64encode(file.read()).decode("utf8")
         file.close()
-        
+                                                        
         requestJson = {    
             "argument": {
                 "language_code": languageCode,
@@ -440,7 +436,7 @@ def STT():
         # 정답Text
         String_target = sound_target
         
-        print(String_sound)
+        print(List)
         
         #---------------------------------------------------------------------------
         #       유사도 검사 NLP Open API
@@ -484,9 +480,9 @@ def STT():
         
         String = ''
         if NLP_reuslt == 'paraphrase' :
-            String += '정답입니다'
+            String += '유사합니다'
         else:
-            String += '오답입니다'
+            String += '유사하지 않습니다'
             
         os.remove(audioFilePath)
         #                                             정답문장          TTS        체크 결과

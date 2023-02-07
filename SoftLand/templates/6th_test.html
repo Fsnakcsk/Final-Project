@@ -110,14 +110,14 @@
                     var hf = document.createElement('a');
 
                     /* ---------------------------------------------------------- */
-
+                    
                     var formData = new FormData();
                     formData.append("file", blob);
 
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "/STT");
                     xhr.send(formData);
-
+                    
                     /* ---------------------------------------------------------- */
 
                     au.controls = true;
