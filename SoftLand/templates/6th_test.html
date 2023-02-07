@@ -104,12 +104,34 @@
                     //recorder.stop();
                     
                     var blob = recorder.getBlob();
+               
                     var url = URL.createObjectURL(blob);
+
+                    var data = new FormData();
+                    data.append('sound', blob, 'sound.wav');
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/STT",
+                        data: blob,
+                        processData: false,
+                        contentType: false
+                    })
+                        .done(function (data) {
+                            console.log("Success:", data);
+                        })
+                        .fail(function (error) {
+                            console.error("Error:", error);
+                        });
+                    
+
+
+
+
+
                     var div = document.createElement('div');
                     var au = document.createElement('audio');
                     var hf = document.createElement('a');
-                    
-
 
                     /* ---------------------------------------------------------- */
 
@@ -145,22 +167,6 @@
                     hf.innerHTML = hf.download;
                     // hf.click()
 
-                    var data = new FormData();
-                    data.append('sound', blob, 'sound.wav');
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/STT",
-                        data: blob,
-                        processData: false,
-                        contentType: false
-                    })
-                        .done(function (data) {
-                            console.log("Success:", data);
-                        })
-                        .fail(function (error) {
-                            console.error("Error:", error);
-                        });
 
                     //hf.click();            // 다운로드 클릭
                     //a = div.appendChild(au);
