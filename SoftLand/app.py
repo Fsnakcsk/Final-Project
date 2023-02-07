@@ -385,7 +385,7 @@ def STT():
     #---------------------------------------------------------------------------
     if request.method == 'POST':
         
-        data = request.files['sound'].read()
+        data = request.files['files'].read()
         
         # blob = request.data
         # Do something with the blob
