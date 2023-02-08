@@ -369,7 +369,7 @@ testString = "강아지가 방에 들어오면 고양이는 의자 밑에 숨는
 @app.route('/sound')
 def sound():
     
-    return render_template('6th_test.html', target=dic['1'])
+    return render_template('6th_test_copy.html', target=dic['1'])
 
 @app.route('/STT', methods=['POST', 'GET'])
 def STT():
@@ -388,7 +388,6 @@ def STT():
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         audioFilePath = "C:\\Users\\admin\\Desktop\\정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
-        #audioFilePath = audio_data
         languageCode = "korean"
         
         file = open(audioFilePath, "rb")
