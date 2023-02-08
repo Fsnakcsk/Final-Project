@@ -108,9 +108,9 @@
                     var div = document.createElement('div');
                     var au = document.createElement('audio');
                     var hf = document.createElement('a');
-
-
                     
+
+
                     /* ---------------------------------------------------------- */
 
                     /*
@@ -157,6 +157,7 @@
                     .catch(error => console.error(error));
                     recordingslist.appendChild(div);
                     */
+
                     /*
                     $.ajax({
                         type: "POST",
@@ -177,6 +178,7 @@
                     //hf.click();            // 다운로드 클릭
                     //a = div.appendChild(au);
                     //div.appendChild(hf);
+                    recordingslist.appendChild(div);
                 }
                 //-------------------------------------------------------------------------------------            
                 function playRecording() {

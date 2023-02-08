@@ -378,22 +378,19 @@ def STT():
     String_target = '' # 정답 Text
     
     sleep(5)
-    count = 1
     
+    count = 1
+    audio_data = request.form["audio_data"]
     #---------------------------------------------------------------------------
     #      STT Open API
     #---------------------------------------------------------------------------
     if request.method == 'POST':
         
-        # audio_file = request.data
-        # with open("audio.wav", "wb") as f:
-        #     f.write(audio_file)
-
         
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         audioFilePath = "C:\\Users\\admin\\Desktop\\정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
-        #audioFilePath = "audio.wav"
+        #audioFilePath = audio_data
         languageCode = "korean"
         
         # file = open(audioFilePath, "rb")
