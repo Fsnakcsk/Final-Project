@@ -385,10 +385,9 @@ def STT():
     #---------------------------------------------------------------------------
     if request.method == 'POST':
         
-        data = request.get_json()
-        audio = data["audio"]
+        audio = request.form["audio"]
         print(audio)
-
+        
         
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 

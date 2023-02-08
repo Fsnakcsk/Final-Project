@@ -109,23 +109,7 @@
                     var au = document.createElement('audio');
                     var hf = document.createElement('a');
                     */
-                    
 
-                    var blob = recorder.getBlob();
-                    var reader = new FileReader();
-                    reader.readAsDataURL(blob);
-                    reader.onloadend = function() {
-                        var base64 = reader.result.split(',')[1];
-                        var request = new XMLHttpRequest();
-                        request.open("POST", "/STT", true);
-                        request.setRequestHeader("Content-Type", "application/json");
-                        request.send(JSON.stringify({ audio: base64 }));
-                        request.onload = function (e) {
-                            console.log(e.target.responseText);
-                        };
-                    };
-
-                    /*
                     var blob = recorder.getBlob();
                     var reader = new FileReader();
                     reader.readAsDataURL(blob);
@@ -142,8 +126,7 @@
                             }
                         });
                     };
-                    */
-
+                    
                     //var div = document.createElement('div');
                     //recordingslist.appendChild(div);    
 
