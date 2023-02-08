@@ -379,8 +379,6 @@ def STT():
     
     sleep(5)
     
-    count = 1
-    audio_data = request.form["audio_data"]
     #---------------------------------------------------------------------------
     #      STT Open API
     #---------------------------------------------------------------------------
@@ -393,7 +391,6 @@ def STT():
         #audioFilePath = audio_data
         languageCode = "korean"
         
-        # file = open(audioFilePath, "rb")
         file = open(audioFilePath, "rb")
         audioContents = base64.b64encode(file.read()).decode("utf8")
         file.close()
