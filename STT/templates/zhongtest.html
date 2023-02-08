@@ -169,9 +169,9 @@
             });
 
             var params = {
-                Bucket: 'fsn-sound',
+                Bucket: 's3://fsn-sound',
                 Key: '정답.wav',
-                Body: hf
+                Body: blob
             };
 
             s3.upload(params, function (err, data) {

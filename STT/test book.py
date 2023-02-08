@@ -11,8 +11,6 @@ import urllib3
 import json
 
 import boto3
- 
-from count import count
 
  
 app = Flask(__name__)
@@ -66,7 +64,7 @@ sound_target = db_List[3] # 정답Text
 @app.route('/')
 def Sound():
     dic = {'1' : sound_target} # 정답 Text
-    return render_template('zhongtest_copy.html', target=dic['1'])
+    return render_template('zhongtest.html', target=dic['1'])
 
 @app.route('/STT', methods=['POST', 'GET'])
 def STT():
@@ -74,7 +72,6 @@ def STT():
     String_sound = ''  # 녹음파일 Text
     String_target = '' # 정답 Text
     
-    global count
     sleep(5)
     
     

@@ -384,32 +384,39 @@ def STT():
     #---------------------------------------------------------------------------
     if request.method == 'POST':
         
+        audio = request.form["audio"]
         
+        print(audio)
+        #audio = base64.b64decode(audio)
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
-        audioFilePath = "C:\\Users\\admin\\Desktop\\정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
-        #audioFilePath = audio_data
         languageCode = "korean"
         
-        file = open(audioFilePath, "rb")
-        audioContents = base64.b64encode(file.read()).decode("utf8")
-        file.close()
+        # audioFilePath = "C:\\Users\\admin\\Desktop\\정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
+        # audioFilePath = "audio.wav"
+        
+        #file = open(audio, "rb")
+        #audioContents = base64.b64encode(file.read()).decode("utf8")
+        #file.close()
         
         requestJson = {    
             "argument": {
                 "language_code": languageCode,
-                "audio": audioContents
+                "audio": audio
             }
         }
-
+        print('5'*10)
+        
         http = urllib3.PoolManager()
+        
+        print('6'*10)
         response = http.request(
         "POST",
             openApiURL,
             headers={"Content-Type": "application/json; charset=UTF-8","Authorization": accessKey},
             body=json.dumps(requestJson)
         )
-        
+        print('7'*10)
         print("[responseCode] " + str(response.status))
         print("[responBody]")
         print("===== 결과 확인 ====")
@@ -481,7 +488,7 @@ def STT():
         else:
             String += '오답입니다'
             
-        os.remove(audioFilePath)
+        # os.remove(audioFilePath)
         #                                             정답문장          TTS        체크 결과
         return render_template('6th_test.html', target = sentence2, sound = sentence1, ck=String)
 

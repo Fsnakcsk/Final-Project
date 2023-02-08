@@ -102,12 +102,34 @@
                 // 멈추기 버튼
                 function stopRecording() {
                     //recorder.stop();
-                    
+                    /*
                     var blob = recorder.getBlob();
                     var url = URL.createObjectURL(blob);
                     var div = document.createElement('div');
                     var au = document.createElement('audio');
                     var hf = document.createElement('a');
+                    */
+                    
+
+                    var blob = recorder.getBlob();
+                    var reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = function() {
+                        var base64 = reader.result.split(',')[1];
+                        $.ajax({
+                            type: "POST",
+                            url: "/STT",
+                            data: {
+                                audio: base64
+                            },
+                            success: function (response) {
+                                console.log(response);
+                            }
+                        });
+                    };
+
+                    //var div = document.createElement('div');
+                    //recordingslist.appendChild(div);    
 
                     /* ---------------------------------------------------------- */
 
@@ -133,7 +155,7 @@
                     */
 
                     /* ---------------------------------------------------------- */
-
+/*
                     au.controls = true;
                     au.src = url;
                     hf.href = url;
@@ -141,10 +163,20 @@
                     count = count + 1
                     hf.download = '정답' + String(count) + '.wav';
                     hf.innerHTML = hf.download;
-                    hf.click()
-                    
+                    // hf.click()
 
+                    recordingslist.appendChild(div);
+*/
+                    /*
+                    fetch("http://192.168.0.18:5000/STT", {
+                        method: "POST",
+                        body: au.src
+                    })
+                        .then(response => response.text())
+                        .then(text => console.log(text))
+                        .catch(error => console.error(error));
 
+                    */
                     /*
                     fetch("/STT", {
                         method: "POST",
@@ -176,7 +208,6 @@
                     //hf.click();            // 다운로드 클릭
                     //a = div.appendChild(au);
                     //div.appendChild(hf);
-                    recordingslist.appendChild(div);
                 }
                 //-------------------------------------------------------------------------------------            
                 function playRecording() {
