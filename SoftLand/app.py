@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, flash, g, redirect, url_for
 from werkzeug.utils import secure_filename
 import sqlite3 as sql
 import os
+import base64
 
 # 1st test
 import keras.applications as kapp
@@ -385,24 +386,23 @@ def STT():
     if request.method == 'POST':
         
         audio = request.form["audio"]
-        
         print(audio)
-        #audio = base64.b64decode(audio)
+        
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         languageCode = "korean"
-        
+
         # audioFilePath = "C:\\Users\\admin\\Desktop\\정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
-        # audioFilePath = "audio.wav"
+        audioFilePath = audio
         
         #file = open(audio, "rb")
-        #audioContents = base64.b64encode(file.read()).decode("utf8")
+        #audioContents = base64.b64encode(file.read())decode("utf8")
         #file.close()
-        
+
         requestJson = {    
             "argument": {
                 "language_code": languageCode,
-                "audio": audio
+                "audio": audioFilePath
             }
         }
         print('5'*10)
