@@ -399,7 +399,7 @@ def STT():
                 "audio": audioContents
             }
         }
-
+        sleep(2)
         http = urllib3.PoolManager()
         response = http.request(
         "POST",

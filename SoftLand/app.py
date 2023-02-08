@@ -385,24 +385,26 @@ def STT():
     #---------------------------------------------------------------------------
     if request.method == 'POST':
         
-        audio = request.form["audio"]
+        data = request.get_json()
+        audio = data["audio"]
         print(audio)
+
         
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         languageCode = "korean"
 
         # audioFilePath = "C:\\Users\\admin\\Desktop\\정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
-        audioFilePath = audio
+        # audioFilePath = audio
         
-        #file = open(audio, "rb")
-        #audioContents = base64.b64encode(file.read())decode("utf8")
+        #file = open(audioFilePath, "rb")
+        #audioContents = base64.b64encode(file.read()).decode("utf8")
         #file.close()
 
         requestJson = {    
             "argument": {
                 "language_code": languageCode,
-                "audio": audioFilePath
+                "audio": audio
             }
         }
         print('5'*10)
