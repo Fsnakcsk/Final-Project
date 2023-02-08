@@ -109,31 +109,6 @@
                     var au = document.createElement('audio');
                     var hf = document.createElement('a');
 
-                    /* ---------------------------------------------------------- */
-
-                    /*
-                    let blob = dataURLToBlob(url);
-                    let formData = new FormData();
-                    formData.append("file", blob, "file.wav");
-                    let xhr = new XMLHttpRequest();
-                    xhr.open("POST", "/STT", true);
-                    xhr.send(formData);
-
-                
-                    
-                    let parts = dataURL.split(";base64,");
-                    let contentType = parts[0].split(":")[1];
-                    let raw = window.atob(parts[1]);
-                    let rawLength = raw.length;
-                    let uInt8Array = new Uint8Array(rawLength);
-                    for (let i = 0; i < rawLength; ++i) {
-                        uInt8Array[i] = raw.charCodeAt(i);
-                    }
-                    return new Blob([uInt8Array], {type: contentType});
-                    */
-
-                    /* ---------------------------------------------------------- */
-
                     au.controls = true;
                     au.src = url;
                     hf.href = url;
