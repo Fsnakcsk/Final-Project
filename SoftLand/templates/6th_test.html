@@ -51,7 +51,7 @@
                     <div class='line'>
                         <form action="/STT" method="post">
                             <!-- 멈추기버튼 -->
-                            <input class="btn" onclick="stopRecording()" id='dw' type="submit" value="멈춰" />
+                            <input class="btn" onclick="stopRecording()" id='dw' type="button" value="멈춰" />
                         </form>
                     </div>
                 </div>
@@ -119,17 +119,7 @@
                     hf.innerHTML = hf.download;
                     //hf.click()
 
-                    // JavaScript code on the web page
-                    var blob = recorder.getBlob();
-                    var formData = new FormData();
-                    formData.append("audio_file", blob, "answer.wav");
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "/STT", true);
-                    xhr.send(formData);
-
-
-                    /*
+                    
                     fetch('/STT', {
                         method: 'POST',
                         body: blob
@@ -140,9 +130,10 @@
                           const link = document.createElement('a');
                           link.href = url;
                           link.download = 'audio.wav';
-                          link.click();
+                          //link.click();
                         });
-                    */
+
+                    recordingslist.appendChild(div); 
 
 
                     /*

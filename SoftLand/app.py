@@ -1,11 +1,9 @@
 from flask import Flask, render_template, request, flash, g, redirect, url_for, send_file
-
+from flask import jsonify
 from werkzeug.utils import secure_filename
 import sqlite3 as sql
 import os
 import base64
-
-
 
 # 1st test
 import keras.applications as kapp
@@ -393,13 +391,16 @@ def STT():
         # print(audio)
         
         
-        # binary_data = request.data
-        # with open('audio.wav', 'wb') as f:
-        #     f.write(binary_data)
-        #     send_file('audio.wav', attachment_filename='audio.wav', mimetype='audio/wav')
+        binary_data = request.data
+        with open('audio.wav', 'wb') as f:
+            f.write(binary_data)
+            send_file('audio.wav', attachment_filename='audio.wav', mimetype='audio/wav')
         
-        audio_file = request.files["audio_file"]
-        audio_file.save("answer.wav")
+        # audio_file = request.files["sound"]
+        # audio_file.save("sound.wav")
+        # print(audio_file)
+        
+        
         
         
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
@@ -505,7 +506,6 @@ def STT():
         #                                             정답문장          TTS        체크 결과
         return render_template('6th_test.html', target = sentence2, sound = sentence1, ck=String)
 
-
 ################### 결과페이지 : 대시보드 ###################
 
 @app.route('/result')
@@ -544,7 +544,7 @@ if __name__ == '__main__':
     # https://flask.palletsprojects.com/en/2.0.x/api/#flask.Flask.run
     # https://snacky.tistory.com/9
      # host주소와 port number 선언
-    app.run(host='0.0.0.0')  
+    app.run(host='0.0.0.0', debug=True)  
     
     
     
