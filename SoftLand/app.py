@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request, flash, g, redirect, url_for
+from flask import Flask, render_template, request, flash, g, redirect, url_for, send_file
+
 from werkzeug.utils import secure_filename
 import sqlite3 as sql
 import os
 import base64
+
+
 
 # 1st test
 import keras.applications as kapp
@@ -372,6 +375,7 @@ def sound():
     
     return render_template('6th_test.html', target=dic['1'])
 
+
 @app.route('/STT', methods=['POST', 'GET'])
 def STT():
     
@@ -385,25 +389,33 @@ def STT():
     #---------------------------------------------------------------------------
     if request.method == 'POST':
         
-        audio = request.form["audio"]
-        print(audio)
+        # audio = request.form['audio']
+        # print(audio)
+        
+        
+        # binary_data = request.data
+        # with open('audio.wav', 'wb') as f:
+        #     f.write(binary_data)
+        #     send_file('audio.wav', attachment_filename='audio.wav', mimetype='audio/wav')
+        
+        audio_file = request.files["audio_file"]
+        audio_file.save("answer.wav")
         
         
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         languageCode = "korean"
-
         # audioFilePath = "C:\\Users\\admin\\Desktop\\정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
-        # audioFilePath = audio
+        audioFilePath = "audio.wav"
         
-        #file = open(audioFilePath, "rb")
-        #audioContents = base64.b64encode(file.read()).decode("utf8")
-        #file.close()
+        file = open(audioFilePath, "rb")
+        audioContents = base64.b64encode(file.read()).decode("utf8")
+        file.close()
 
         requestJson = {    
             "argument": {
                 "language_code": languageCode,
-                "audio": audio
+                "audio": audioContents
             }
         }
         print('5'*10)
@@ -418,7 +430,7 @@ def STT():
             body=json.dumps(requestJson)
         )
         print('7'*10)
-        print("[responseCode] " + str(response.status))
+        # print("[responseCode] " + str(response.status))
         print("[responBody]")
         print("===== 결과 확인 ====")
 
@@ -489,7 +501,7 @@ def STT():
         else:
             String += '오답입니다'
             
-        # os.remove(audioFilePath)
+        os.remove(audioFilePath)
         #                                             정답문장          TTS        체크 결과
         return render_template('6th_test.html', target = sentence2, sound = sentence1, ck=String)
 
@@ -532,7 +544,7 @@ if __name__ == '__main__':
     # https://flask.palletsprojects.com/en/2.0.x/api/#flask.Flask.run
     # https://snacky.tistory.com/9
      # host주소와 port number 선언
-    app.run(host='0.0.0.0', debug=True)  
+    app.run(host='0.0.0.0')  
     
     
     

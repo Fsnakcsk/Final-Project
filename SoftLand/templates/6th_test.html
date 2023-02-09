@@ -101,15 +101,51 @@
                 //-------------------------------------------------------------------------------------
                 // 멈추기 버튼
                 function stopRecording() {
-                    //recorder.stop();
-                    /*
+
+                    recorder.stop();
+                    
                     var blob = recorder.getBlob();
                     var url = URL.createObjectURL(blob);
                     var div = document.createElement('div');
                     var au = document.createElement('audio');
                     var hf = document.createElement('a');
+                    
+                    au.controls = true;
+                    au.src = url;
+                    hf.href = url;
+
+                    count = count + 1
+                    hf.download = '정답' + String(count) + '.wav';
+                    hf.innerHTML = hf.download;
+                    //hf.click()
+
+                    // JavaScript code on the web page
+                    var blob = recorder.getBlob();
+                    var formData = new FormData();
+                    formData.append("audio_file", blob, "answer.wav");
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/STT", true);
+                    xhr.send(formData);
+
+
+                    /*
+                    fetch('/STT', {
+                        method: 'POST',
+                        body: blob
+                      })
+                        .then(response => response.blob())
+                        .then(blob => {
+                          const url = window.URL.createObjectURL(blob);
+                          const link = document.createElement('a');
+                          link.href = url;
+                          link.download = 'audio.wav';
+                          link.click();
+                        });
                     */
 
+
+                    /*
                     var blob = recorder.getBlob();
                     var reader = new FileReader();
                     reader.readAsDataURL(blob);
@@ -126,7 +162,8 @@
                             }
                         });
                     };
-                    
+                    */
+
                     //var div = document.createElement('div');
                     //recordingslist.appendChild(div);    
 
@@ -140,8 +177,6 @@
                     xhr.open("POST", "/STT", true);
                     xhr.send(formData);
 
-                
-                    
                     let parts = dataURL.split(";base64,");
                     let contentType = parts[0].split(":")[1];
                     let raw = window.atob(parts[1]);
@@ -154,28 +189,28 @@
                     */
 
                     /* ---------------------------------------------------------- */
-/*
-                    au.controls = true;
-                    au.src = url;
-                    hf.href = url;
-
-                    count = count + 1
-                    hf.download = '정답' + String(count) + '.wav';
-                    hf.innerHTML = hf.download;
-                    // hf.click()
-
-                    recordingslist.appendChild(div);
-*/
                     /*
-                    fetch("http://192.168.0.18:5000/STT", {
+                                        au.controls = true;
+                                        au.src = url;
+                                        hf.href = url;
+                    
+                                        count = count + 1
+                                        hf.download = '정답' + String(count) + '.wav';
+                                        hf.innerHTML = hf.download;
+                                        // hf.click()
+                    
+                                        recordingslist.appendChild(div);
+                    */
+                    /*
+                    fetch("/STT", {
                         method: "POST",
-                        body: au.src
+                        body: blob
                     })
                         .then(response => response.text())
                         .then(text => console.log(text))
                         .catch(error => console.error(error));
-
                     */
+
                     /*
                     fetch("/STT", {
                         method: "POST",
