@@ -530,7 +530,7 @@ def STT():
         
     #                                               정답문장          TTS        체크 결과
     # return render_template('6th_test.html', target = sentence2, sound = sentence1, ck=String)
-    return None
+    return jsonify({'id':stt_id})
 
 
 
@@ -688,7 +688,7 @@ if __name__ == '__main__':
     # https://flask.palletsprojects.com/en/2.0.x/api/#flask.Flask.run
     # https://snacky.tistory.com/9
      # host주소와 port number 선언
-    app.run(host='0.0.0.0', debug=True)  
+    app.run(host='0.0.0.0')  
     
     
     
