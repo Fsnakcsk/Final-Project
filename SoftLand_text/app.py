@@ -399,18 +399,6 @@ def STT():
         audioFilePath = request.files['recode'] # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
         languageCode = "korean"
         
-        
-        # Let's use Amazon S3 접속 
-        s3 = boto3.resource('s3', 
-                            aws_access_key_id = "AKIAX2S4HYTUOY7MXY4O",
-                            aws_secret_access_key = "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")
-
-        # Print out bucket names
-        for bucket in s3.buckets.all():
-            s3_data = bucket.name
-            
-        # Upload a new file
-        data = open(audioFilePath, 'rb')
         s3.Bucket(s3_data).put_object(Key=audioFilePath, Body=data)
         
 
