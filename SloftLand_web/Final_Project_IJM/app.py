@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, flash, g, redirect, url_for, 
 from werkzeug.utils import secure_filename
 import sqlite3 as sql
 import os
+import boto3
+
 
 # 1st test
 import keras.applications as kapp
@@ -459,14 +461,10 @@ def sound():
 
 @app.route('/STT', methods=['POST', 'GET'])
 def STT():
-    print('1111111111111111111111')
     String_sound = ''  # 녹음파일 Text
-    print('22222222222222222222')
     String_target = '' # 정답 Text
-    print('333333333333333333')
     sleep(5)
-    count = 1
-    print('4444444444444444')
+
     
     #---------------------------------------------------------------------------
     #      STT Open API
@@ -474,31 +472,13 @@ def STT():
     print('여기까지는 되는거?')
     if request.method == 'POST':
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
-        print('5555555')
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
-        print('6666666')
         audioFilePath = request.files['recode'] # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
-
-        print('777777777')
-        # audioFilePath.save('녹음파일.wav')
-        print('888888888')
+        
         languageCode = "korean"
-        print('999999999999')
-        #file = open('nefile', "rb")
-        #audioContents= wavfile.read("녹음파일.wav") ## !!
-        #print(audioContents)
-        #audio_binary = tf.io.read_file(audioFilePath)
-        # audioFile = request.files['recode']
+        
         data = audioFilePath.read()
         audioContents = base64.b64encode(data).decode("utf8")
-        # inMemoryFile = BytesIO(audioContents)
-
-
-        print('ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ')
-        #audioContents = base64.b64encode(file.read()).decode("utf8")
-        # audioContents = base64.b64encode(inMemoryFile.getvalue()).decode("utf8")
-        print('ㄴㄴㄴㄴㄴㄴ')
-        #file.close()
         
         requestJson = {    
             "argument": {
@@ -527,9 +507,7 @@ def STT():
         print(List)
         # 녹음한 음성을 처리한 결과를 List변수에 담는다.
         
-        
         # dic = {'1' : "안녕하세요. 오늘도 멋진 하루 되세요"}
-        
         
         # NLP 유사도검사를 위해 정답Text와 녹음하고 Text로 바꾼 결과를 변수에 담에서 NLP모델에 넘긴다.
         # 녹음파일 Text

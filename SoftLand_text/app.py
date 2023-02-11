@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, flash, g, redirect, url_for, 
 from werkzeug.utils import secure_filename
 import sqlite3 as sql
 import os
+import boto3
 
 # 1st test
 import keras.applications as kapp
@@ -358,25 +359,25 @@ DATABASE_URI = 'sttdb.db'
 #----------------------------------------------------------------------
 # 연결
 
-conn = sql.connect(DATABASE_URI, isolation_level=None)
-cur = conn.cursor()
+# conn = sql.connect(DATABASE_URI, isolation_level=None)
+# cur = conn.cursor()
 
-cur.execute("SELECT target FROM STT")
-db_text = str(cur.fetchmany(size=1))
+# cur.execute("SELECT target FROM STT")
+# db_text = str(cur.fetchmany(size=1))
 
-# 경로와 정답Text만 추출하기 위한 처리
-db_List = db_text.split("'")
+# # 경로와 정답Text만 추출하기 위한 처리
+# db_List = db_text.split("'")
 
-global sound_target
-sound_target = db_List[1] # 정답Text
-print(sound_target)
+# global sound_target
+# sound_target = db_List[1] # 정답Text
+# print(sound_target)
 
-dic = {'1' : sound_target} # 정답 Text
+# dic = {'1' : sound_target} # 정답 Text
 
 
 @app.route('/sound')
 def sound():
-    return render_template('6th_test.html', target=dic['1'])
+    return render_template('6th_test.html', target="강아지가 방에 들어오면 고양이는 의자 밑에 숨는다")
 
 
 @app.route('/STT', methods=['POST', 'GET'])
@@ -397,8 +398,23 @@ def STT():
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
         audioFilePath = request.files['recode'] # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
         languageCode = "korean"
+        
+        
+        # Let's use Amazon S3 접속 
+        s3 = boto3.resource('s3', 
+                            aws_access_key_id = "AKIAX2S4HYTUOY7MXY4O",
+                            aws_secret_access_key = "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")
 
-        data = audioFilePath.read()
+        # Print out bucket names
+        for bucket in s3.buckets.all():
+            s3_data = bucket.name
+            
+        # Upload a new file
+        data = open(audioFilePath, 'rb')
+        s3.Bucket(s3_data).put_object(Key=audioFilePath, Body=data)
+        
+
+        #data = audioFilePath.read()
         audioContents = base64.b64encode(data).decode("utf8")
 
         requestJson = {    
@@ -434,7 +450,7 @@ def STT():
         String_sound = List
         
         # 정답Text
-        String_target = sound_target
+        # String_target = sound_target
         
         
         #---------------------------------------------------------------------------
@@ -552,7 +568,7 @@ def STT():
 #         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
 #         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
 #         audioFilePath = "C:/Users/admin/Downloads/정답1.wav" # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
-            
+
 #         languageCode = "korean"
         
 #         file = open(audioFilePath, "rb")
