@@ -399,8 +399,6 @@ def STT():
         audioFilePath = request.files['recode'] # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
         languageCode = "korean"
         
-        s3.Bucket(s3_data).put_object(Key=audioFilePath, Body=data)
-        
 
         #data = audioFilePath.read()
         audioContents = base64.b64encode(data).decode("utf8")
