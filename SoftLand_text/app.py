@@ -400,7 +400,7 @@ def STT():
         languageCode = "korean"
         
 
-        #data = audioFilePath.read()
+        data = audioFilePath.read()
         audioContents = base64.b64encode(data).decode("utf8")
 
         requestJson = {    
