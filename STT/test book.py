@@ -64,8 +64,8 @@ sound_target = db_List[3] # 정답Text
 @app.route('/')
 def Sound():
     dic = {'1' : sound_target} # 정답 Text
-    #return render_template('zhongtest.html', target=dic['1'])
-    return render_template('zhongtest.html', target= )
+    return render_template('zhongtest.html', target=dic['1'])
+    #return render_template('zhongtest.html', target= "안녕하세요")
 
 @app.route('/STT', methods=['POST', 'GET'])
 def STT():
@@ -75,20 +75,20 @@ def STT():
     
     sleep(3)
     
-    file = request.data
-    with open('temp.wav', 'wb') as f:
-        f.write(file)
+    # file = request.data
+    # with open('temp.wav', 'wb') as f:
+    #     f.write(file)
 
-    # 将临时文件保存为.wav文件
-    with wave.open('temp.wav', 'rb') as wav_file:
-        params = wav_file.getparams()
-        frames = wav_file.readframes(wav_file.getnframes())
-    with wave.open('audio.wav', 'wb') as wav_file:
-        wav_file.setparams(params)
-        wav_file.writeframes(frames)
+    # # 将临时文件保存为.wav文件
+    # with wave.open('temp.wav', 'rb') as wav_file:
+    #     params = wav_file.getparams()
+    #     frames = wav_file.readframes(wav_file.getnframes())
+    # with wave.open('audio.wav', 'wb') as wav_file:
+    #     wav_file.setparams(params)
+    #     wav_file.writeframes(frames)
 
-    # 将.wav文件发送回JavaScript客户端进行下载
-    send_file('audio.wav', as_attachment=True)
+    # # 将.wav文件发送回JavaScript客户端进行下载
+    # send_file('audio.wav', as_attachment=True)
     
     
     #---------------------------------------------------------------------------
