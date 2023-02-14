@@ -160,27 +160,13 @@
 
             hf.download = '정답.wav';
             hf.innerHTML = hf.download;
-            hf.click()
+            // hf.click()
 
-            var AWS = require('aws-sdk');
-            var s3 = new AWS.S3({
-                accessKeyId: 'AKIAX2S4HYTUOY7MXY4O',
-                secretAccessKey: 'lrY8n7fBFJZTDcRuGMyvHzVm4OUoBz'
-            });
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/upload', true);
+            xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+            xhr.send(blob);
 
-            var params = {
-                Bucket: 's3://fsn-sound',
-                Key: '정답.wav',
-                Body: blob
-            };
-
-            s3.upload(params, function (err, data) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(data);
-                }
-            });
 
 
             // 정답1 정답1(1), 정답1(2)

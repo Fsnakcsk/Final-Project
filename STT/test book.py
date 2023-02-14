@@ -1,5 +1,6 @@
-from flask import Flask, flash, redirect, render_template, request, url_for, jsonify
+from flask import Flask, flash, redirect, render_template, request, url_for, jsonify, send_file
 import sqlite3 as sql
+import wave
 
 from flask import g
 import os
@@ -57,14 +58,14 @@ db_List = db_text.split("'")
 sound_url = db_List[5]    # 경로
 sound_target = db_List[3] # 정답Text
 
-
 #-------------------------------------------------------------
 #      main
 #-------------------------------------------------------------
 @app.route('/')
 def Sound():
     dic = {'1' : sound_target} # 정답 Text
-    return render_template('zhongtest.html', target=dic['1'])
+    #return render_template('zhongtest.html', target=dic['1'])
+    return render_template('zhongtest.html', target= )
 
 @app.route('/STT', methods=['POST', 'GET'])
 def STT():
@@ -72,7 +73,22 @@ def STT():
     String_sound = ''  # 녹음파일 Text
     String_target = '' # 정답 Text
     
-    sleep(5)
+    sleep(3)
+    
+    file = request.data
+    with open('temp.wav', 'wb') as f:
+        f.write(file)
+
+    # 将临时文件保存为.wav文件
+    with wave.open('temp.wav', 'rb') as wav_file:
+        params = wav_file.getparams()
+        frames = wav_file.readframes(wav_file.getnframes())
+    with wave.open('audio.wav', 'wb') as wav_file:
+        wav_file.setparams(params)
+        wav_file.writeframes(frames)
+
+    # 将.wav文件发送回JavaScript客户端进行下载
+    send_file('audio.wav', as_attachment=True)
     
     
     #---------------------------------------------------------------------------
