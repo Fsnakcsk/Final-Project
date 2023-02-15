@@ -71,7 +71,7 @@ def Sound():
 def STT():
     
     String_sound = ''  # 녹음파일 Text
-    String_target = '' # 정답 Text
+    String_target = '' # 정답 Text 
     
     sleep(3)
     
