@@ -75,7 +75,7 @@ def STT():
     
     sleep(3)
     
-    # file = request.data
+    # file = request.data 
     # with open('temp.wav', 'wb') as f:
     #     f.write(file)
 
