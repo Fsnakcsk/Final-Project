@@ -69,7 +69,10 @@ def Sound():
 
 @app.route('/STT', methods=['POST', 'GET'])
 def STT():
+<<<<<<< Updated upstream
      
+=======
+>>>>>>> Stashed changes
     String_sound = ''  # 녹음파일 Text
     String_target = '' # 정답 Text 
     
