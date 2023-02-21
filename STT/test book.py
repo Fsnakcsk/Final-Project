@@ -42,7 +42,7 @@ DATABASE_URI = 'C:\\Users\\admin\\Desktop\\Github\\Final-Project\\STT\\sttdb.db'
 #                     VALUES(?, ?, ?)""", (id, p, url))
 # conn.commit()
 # cur.close()
-
+ 
 
 # ---- DB에서 데이터를 불러오기 ----
 conn = sql.connect(DATABASE_URI, isolation_level=None)
