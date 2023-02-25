@@ -26,7 +26,7 @@ dic = {'01':['/static/2/img/001.png', '빨강'], '02':['/static/2/img/002.png', 
 
 
 # @bp.before_request
-# def before_second():
+# def before_second(): 
 #     print('hi')
 #     g.s_list = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10']
 #     g.s_answer = ''
