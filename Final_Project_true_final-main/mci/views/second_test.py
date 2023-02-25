@@ -7,7 +7,7 @@ def s_quiz(stroop, dic):
         key = choice(stroop)
         stroop.remove(key)
         h_path = dic[key][0]
-        answer = dic[key][1]
+        answer = dic[key][1] 
         return key, h_path, answer, stroop
 
 
