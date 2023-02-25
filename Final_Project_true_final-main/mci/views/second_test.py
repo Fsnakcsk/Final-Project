@@ -15,7 +15,7 @@ def s_quiz(stroop, dic):
 # s_answer = ''
 # OX = []
 # s_count = 0
-# key = ''
+# key = '' 
 
 
 dic = {'01':['/static/2/img/001.png', '빨강'], '02':['/static/2/img/002.png', '파랑'], '03':['/static/2/img/003.png', '노랑'],
